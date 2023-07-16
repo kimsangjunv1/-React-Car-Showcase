@@ -2,6 +2,7 @@ import Image from "next/image";
 import { CustomFilter, Hero, SearchBar, CarCard } from "@/components";
 import { fetchCars } from "@/utils";
 import { fuels, yearsOfProduction } from "@/constants";
+import ShowMore from "@/components/ShowMore";
 
 export default async function Home({ searchParams }) {
   const allCars = await fetchCars({
@@ -38,6 +39,11 @@ export default async function Home({ searchParams }) {
                 <CarCard car={car} />
               ))}
             </div>
+
+            <ShowMore
+              pageNumber={(searchParams.limit || 10) / 10}
+              isNext={(searchParams.limit || 10) > allCars.length}
+            />
           </section>
         ) : (
           <div className="home__error-container">
